@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"></meta>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+
+		<title>The open citations revolution</title>
+
+		<link rel="stylesheet" href="css/reveal.css"></link>
+		<link rel="stylesheet" href="css/theme/simple.css"></link>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css"></link>
+
+		<link rel="stylesheet" href="css/ctc.css"></link>
+		<link rel="stylesheet" href="css/addon.css"></link>
+		<link rel="stylesheet" href="css/font-awesome.min.css"></link>
+		<link rel="stylesheet" href="css/academicons.min.css"></link>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section id="title" class="title_slide" role="doc-cover">
+					<h1 class="bbbbt">The open citations revolution</h1>
+					<p class="ssst mbn"><a href="https://doi.org/10.6084/m9.figshare.5522143">https://doi.org/10.6084/m9.figshare.5522143</a></p>
+					<p class="ssst mtn"><a href="https://w3id.org/people/essepuntato/presentations/the-open-citations-revolution.html">https://w3id.org/people/essepuntato/presentations/the-open-citations-revolution.html</a></p>
+					<div class="author">
+						<p><a href="https://www.unibo.it/sitoweb/silvio.peroni/en">Silvio Peroni</a></p>
+						<p class="contact">
+							<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:silvio.peroni@unibo.it">silvio.peroni@unibo.it</a>
+							<i class="ai ai-orcid" aria-hidden="true"></i> <a href="https://orcid.org/0000-0003-0530-4305">0000-0003-0530-4305</a>
+							<i class="fa fa-twitter" aria-hidden="true"></i> <a href="https://twitter.com/essepuntato">@essepuntato</a>
+						</p>
+						<p><a href="http://dasplab.cs.unibo.it/">DASPLab, DISI, Università di Bologna</a></p>
+						<p class="ssst"><a href="https://semsci.github.io/semSci2017/">1<sup>st</sup> Workshop on Enabling Open Semantic Science (SemSci 2017)</a>, 21 October 2017, Vienna, Austria</p>
+						<p class="license"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p>
+					</div>
+					<div role="doc-abstract">
+						<p>Citations are the primary tool to acknowledge others' prior work on a particular topic. They enable one to find key publications within a particular field, and are used also for research purposes – e.g. people working in Bibliometrics, Informetrics, and Scientometrics use them for analysing the complex relationships that exist within huge networks of citations of scholarly works. In addition, citation data are important for the assessment of the quality of research by means of metrics and indicators calculated from citation databases. However, the cruel reality is that citations have been locked up in close silos for years, and often they can only be accessed by paying significant subscription fees.</p>
+						<p>But the scenario is quickly changing. In the past years, several initiatives (I4OC, OpenCitations, WikiCite, Springer Nature SciGraph, LORC, etc.) have started to promote the availability of open citation data. In this talk I will introduce some of the main significative efforts in the area, focussing on the way Semantic Publishing technologies have been used and adopted for enabling a FAIR publication of open citation data.</p>
+					</div>
+				</section>
+
+				<section id="cite">
+					<h2>To cite</h2>
+					<img class="hm fr mll" src="img-semsci2017/newton.jpg" />
+					<p>Oxford dictionary: <q>refer to (a passage, book, or author) as evidence for or justification of an argument or statement, especially in a scholarly work</q></p>
+					<p>Isaac Newton (1675): <q>If I have seen further, it is by standing on the shoulders of giants</q></p>
+					<p>Citations are unanimously recognised as crucial for knitting together our scientific and cultural knowledge</p>
+				</section>
+
+				<section id="meaning">
+					<h2>References and citations</h2>
+					<div class="fragment shrink">
+						<img class="wl fl mrl" src="img-semsci2017/citation-wrong.png" />
+						<p>Everything is a reference</p>
+						<p class="fragment" data-fragment-index="1">Semantic overload!</p>
+					</div>
+
+					<p class="clb fragment"><img class="wl fl mrl" src="img-semsci2017/citation-correct.png" /> A citation is a conceptual directional link from a citing entity to a cited entity</p>
+				</section>
+
+				<section id="kinds">
+					<h2>Kinds of citations</h2>
+					<p>Citations instantiated by the inclusion of a bibliographic reference <span class="cg">(1)</span> <strong>are different from</strong> those defined by an in-text reference pointer + citation context <span class="cb">(2)</span></p>
+					<p class="tc"><img class="wl" src="img-semsci2017/citation-kind.png" /></p>
+					<ol>
+						<li class="fragment cg"><p>Generate a plain citation link</p></li>
+						<li class="fragment cb"><p>Generate a citation link with a specific citation function</p></li>
+					</ol>
+				</section>
+
+				<section id="indexes">
+					<h2>Plain citations: current status</h2>
+					<p>A <em>citation index</em> is an index of (plain) citations between publications</p>
+					<ul>
+						<li><p>Some are freely accessible but not downloadable, e.g. <a href="https://scholar.google.it/">Google Scholar</a></p></li>
+						<li><p>The most authoritative by institutions worldwide, namely <a href="https://www.scopus.com">Scopus</a> and <a href="https://webofknowledge.com">Web of Science</a>, can be accessed only by paying significant access fees</p></li>
+					</ul>
+					<p>Usually are more oriented towards human readability rather than machine readability and data re-use</p>
+					<p>What about machine-readable open citation data?</p>
+				</section>
+
+				<section id="i4oc">
+					<h2>I4OC</h2>
+					<p>The <em>Initiative for Open Citations</em> (I4OC, <a href="https://i4oc.org">https://i4oc.org</a>) is a collaboration between scholarly publishers, researchers, and other interested parties to promote the unrestricted availability of scholarly citation data</p>
+					<p>Goal: promote the availability of data on citations that are:</p>
+					<ul>
+						<li><p><strong>structured</strong> - available in common and machine-readable formats</p></li>
+						<li><p><strong>separable</strong> - no need to access the source bibliographic products</p></li>
+						<li><p><strong>open</strong> - freely accessible and reusable</p></li>
+					</ul>
+				</section>
+
+				<section id="pathway">
+					<h2>Pathway to open citations</h2>
+					<p>Publishers deposit their reference data with <a href="https://www.crossref.org/">Crossref</a>, but the default state for the data is closed (i.e. not accessible through the Crossref REST API)</p>
+					<p class="fragment">However <strong>one</strong> email is enough to make the data open</p>
+					<p class="fragment">Challenge: persuade a group of influential publishers to release their data</p>
+					<div class="fragment">
+						<p>What happened: before I4OC launch (6 April 2017), 1% of publications in Crossref with open references</p>
+						<div class="row stat-bar">
+							<div class="stat-section stat-one">&nbsp;</div>
+							<div class="fragment stat-section stat-two">&nbsp;</div>
+							<div class="fragment stat-section stat-three">&nbsp;</div>
+	          			</div>
+					</div>
+				</section>
+
+				<section id="publishers">
+					<h2>Publishers</h2>
+					<p>49 scholarly publishers have opened their references, including the following major ones:</p>
+					<ul class="sst">
+						<li><p><strong>Commercial publishers</strong> - Association for Computing Machinery, BMJ, De Gruyter, eLife, EMBO Press, Hindawi, IOS Press, PeerJ, Pensoft Publishers, Portland Press, Public Library of Science, Springer Nature, Taylor &amp; Francis, Wiley</p></li>
+						<li><p><strong>University and scholarly presses</strong> - Cambridge University Press, Cold Spring Harbor Laboratory Press, Company of Biologists, Edinburgh University Press, MIT Press, Rockefeller University Press</p></li>
+						<li><p><strong>Learned societies</strong> - American Association for the Advancement of Science (AAAS), American Physical Society, American Society for Cell Biology, International Union of Crystallography, Proceedings of the National Academy of Sciences (PNAS), Royal Society of Chemistry,  The Royal Society</p></li>
+					</ul>
+				</section>
+
+				<section id="stakeholders">
+					<h2>Founders and stakeholders</h2>
+					<p class="tc"><img class="hm" src="img-semsci2017/founders.png" /></p>
+					<p class="tc fragment">
+						<img class="hm mrs" src="img-semsci2017/stakeholders1.png" />
+						<img class="hm mls" src="img-semsci2017/stakeholders2.png" />
+					</p>
+				</section>
+
+				<section id="crossref">
+					<h2>Crossref REST API</h2>
+					<p>API call: <a class="sst" href="http://api.crossref.org/works/10.1007/978-3-319-46547-0_18">http://api.crossref.org/works/10.1007/978-3-319-46547-0_18</a></p>
+					<pre class="fs fragment"><code>{
+  "message": {
+    "DOI": "10.1007/978-3-319-46547-0_18",
+    "title": ["FOOD: FOod in Open Data"],
+    "reference": [{
+      "key": "18_CR1",
+      "unstructured": "Falco, R., Gangemi, A., Peroni, S., Vitali, F.: Modelling OWL ontologies
+                       with Graffoo. In: The Semantic Web: ESWC 2014 Satellite Events, pp. 320-325
+                       (2014). http://dx.doi.org/10.1007/978-3-319-11955-7_42",
+      "DOI": "10.1007/978-3-319-11955-7_42",
+      "doi-asserted-by": "crossref"
+    }, {
+      "key": "18_CR2",
+      "unstructured": "Ferragina, P., Scaiella, U.: On-the-fly annotation of short text fragments
+                       (by Wikipedia entities). In: Proceedings of the 19th ACM International
+                       Conference on Information and Knowledge Management (CIKM 2010), pp.
+                       1625-1628 (2010). http://dx.doi.org/10.1145/1871437.1871689",
+      "DOI": "10.1145/1871437.1871689",
+      "doi-asserted-by": "crossref"
+    }, ... ],
+    ...
+  }
+}</code></pre>
+				</section>
+
+				<section id="fair">
+					<h2>FAIR data principles</h2>
+					<p><a href="https://www.force11.org/group/fairgroup/fairprinciples"><img class="hl" src="img-semsci2017/fair.png"/></a></p>
+				</section>
+
+				<section id="fairness">
+					<h2>FAIRness of citation data</h2>
+					<p>Crossref citation data are not following all the FAIR data principles</p>
+					<ul>
+						<li><p>F1: no persistent identifier is defined for metadata - just API URLs</p></li>
+						<li><p>I1: no use of formal language for knowledge representation - just JSON</p></li>
+						<li><p>I2: the vocabulary used in JSON is not FAIR</p></li>
+						<li><p>R1.2: only a bit of provenance, no change tracking</p></li>
+						<li><p>R1.3: use of specific JSON made for that purpose</p></li>
+					</ul>
+					<p>While Crossref data are the main building block for FAIR open citation data, how can we reach FAIRness?</p>
+				</section>
+
+				<section id="opencitations">
+					<h2><span class="oc-purple">Open</span><span class="oc-blue">Citations</span></h2>
+					<p>The <span class="oc-purple">Open</span><span class="oc-blue">Citations</span> Corpus (OCC, <a href="http://opencitantions.net">http://opencitations.net</a>) is a LOD repository of CC0 citation data</p>
+					<p>It provides >11M citation links from ~260,000 citing articles to ~6M cited resources + provenance information
+					<p>Data accessible via HTTP URI (content negotiation), SPARQL endpoint, and monthly dumps (on <a href="https://figshare.com">Figshare</a>)</p>
+					<p>Reuse of external APIs (Europe PubMed Central, Crossref, ORCID) and models (<a href="http://www.sparontologies.net">SPAR Ontologies</a>)</p>
+					<p class="fragment">More info: <q>One year of the OpenCitations Corpus</q>, talk on October 24, 2017, 10:50, room Stolz 2</p>
+				</section>
+
+				<section id="wikicite">
+					<h2>WikiCite</h2>
+					<img class="hl fr mls" src="img-semsci2017/scholia.png" />
+					<p><em>WikiCite</em> is an initiative to build a bibliographic database in Wikidata to serve all Wikimedia projects</p>
+					<p>Wikidata now includes 36M citation links using the <a href="https://www.wikidata.org/wiki/Property:P2860">cites (P2860) Property</a> in Wikidata</p>
+					<p>All the data released in CC0</p>
+					<p>Additional tools built by the community, e.g. <a href="https://tools.wmflabs.org/scholia/">Scholia</a></p>
+				</section>
+
+				<section id="venice">
+					<h2>Citation functions: what's up</h2>
+					<p class="mbn">From <a href="https://doi.org/10.1108/JD-12-2013-0166">https://doi.org/10.1108/JD-12-2013-0166</a>:</p>
+					<blockquote class="ssst mtn">
+						<p>When the citation links exist but are not described, the traveller through the city of scholarly publishing travels without specific directions, and will get lost in the maze of bridges that form the citation network</p>
+					</blockquote>
+					<p class="tc fragment">
+						<img class="wm fragment shrink" src="img-semsci2017/sign-bw.png" />
+						<img class="wm fragment" src="img-semsci2017/sign-colour.png" />
+					</p>
+					<p class="fragment sst"><img class="hs fl mrm" src="img-semsci2017/spar.png" />The <em>Citation Typing Ontology</em> (CiTO, <a href="http://purl.org/spar/cito">http://purl.org/spar/cito</a>) enables characterization of the nature or type of citations, both factually (<code>cito:usesMethodIn</code>, <code>cito:extends</code>, etc.) and rhetorically (<code>cito:agreesWith</code>, <code>cito:disputes</code>, etc.)</p>
+				</section>
+
+				<section id="semanticlancet">
+					<h2>Semantic Lancet</h2>
+					<p>Semantic Lancet (<a href="http://semanticlancet.eu">http://semanticlancet.eu</a>) is a prototype focused on building LOD on scholarly publications</p>
+					<p>Its contains bibliographic data, abstract and citations</p>
+					<p class="tc"><img class="hl" src="img-semsci2017/semlan-tools.png" /></p>
+				</section>
+
+				<section id="lorc">
+					<h2>LORC</h2>
+					<p>The <em>Linked Open Research Cloud</em> (<a href="https://linkedresearch.org/cloud">https://linkedresearch.org/cloud</a>) is a new project which makes available an <em>inbox</em> to receive Linked Data Notifications about scholarly communication resources</p>
+					<p>CC0 expected for notifications + provenance information</p>
+					<p>Notifications must meet the requirements of certain notification data shapes: article, annotations, citations</p>
+					<p>CiTO properties (i.e. subproperties of <code>cito:cites</code>) are suggested for specifying citation links</p>
+				</section>
+
+				<section id="interlinking">
+					<h2>Journey to FAIR-I land</h2>
+					<p>Key benefit for open citation data from I4OC home:</p>
+					<blockquote class="sst">
+						<p>The creation of a public citation graph to explore connections between knowledge fields, and to follow the evolution of ideas and scholarly disciplines.</p>
+					</blockquote>
+					<p class="fragment">Having one single FAIR dataset with the complete citation graph of the whole scholarly literature is not feasible</p>
+					<p class="fragment">Each initiative should provides its partial data and <strong>links</strong> its resources with those included within other citation datasets</p>
+					<p class="fragment"><em>Interlinking</em> should be an additional mandatory <q>I</q> in FAIR if we want to reach a real public and global citation graph</p>
+				</section>
+
+				<section id="call">
+					<h2>Call for action</h2>
+					<p>Authors and journal editors:</p>
+					<ul>
+						<li><p>ask your publisher to free citation data</p></li>
+						<li><p>contribute actively to community initiatives with your citation data (e.g. share them in LORC)</p></li>
+					</ul>
+					<div class="fragment">
+						<p>Publishers:</p>
+						<ul>
+							<li><p>join I4OC (<a href="https://i4oc.org/#faqs">https://i4oc.org/#faqs</a>)</p></li>
+							<li><p>it is in the publisher's interests - better discoverability and use of its published content, both subscription access and open access</p></li>
+						</ul>
+					</div>
+				</section>
+
+				<section class="title_slide">
+					<h2>
+						END
+						<span class="subtitle">The open citations revolution</span>
+					</h2>
+					<div class="author">
+						<p><a href="https://www.unibo.it/sitoweb/silvio.peroni/en">Silvio Peroni</a></p>
+						<p class="contact">
+							<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:silvio.peroni@unibo.it">silvio.peroni@unibo.it</a>
+							<i class="ai ai-orcid" aria-hidden="true"></i> <a href="https://orcid.org/0000-0003-0530-4305">0000-0003-0530-4305</a>
+							<i class="fa fa-twitter" aria-hidden="true"></i> <a href="https://twitter.com/essepuntato">@essepuntato</a>
+						</p>
+						<p><a href="http://dasplab.cs.unibo.it/">DASPLab, DISI, Università di Bologna</a></p>
+						<p class="ssst"><a href="https://semsci.github.io/semSci2017/">1<sup>st</sup> Workshop on Enabling Open Semantic Science (SemSci 2017)</a>, 21 October 2017, Vienna, Austria</p>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/jquery.min.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
