@@ -97,8 +97,20 @@ ul li:first-child p {
     max-height:100px !important ;
 }
 
+.hss {
+    max-height:200px !important ;
+}
+
+.hsm {
+    max-height:200px !important ;
+}
+
 .hm {
     max-height:300px !important ;
+}
+
+.hmm {
+    max-height:420px !important ;
 }
 
 .hl {
@@ -107,6 +119,10 @@ ul li:first-child p {
 
 .ws {
     max-width:100px !important ;
+}
+
+.wss {
+    max-width:200px !important ;
 }
 
 .wm {
@@ -119,6 +135,10 @@ ul li:first-child p {
 
 .wl {
     max-width:600px !important ;
+}
+
+.wxl {
+    max-width:750px !important ;
 }
 
 .pls {
@@ -221,8 +241,16 @@ ul li:first-child p {
     margin-left:35px !important ;
 }
 
+.mlxl {
+    margin-left:50px !important ;
+}
+
 .mrl {
     margin-right:35px !important ;
+}
+
+.mrxl {
+    margin-right:50px !important ;
 }
 
 .mtl {
@@ -231,6 +259,10 @@ ul li:first-child p {
 
 .mbl {
     margin-bottom:35px !important ;
+}
+
+.mbxl {
+    margin-bottom:50px !important ;
 }
 
 .fl {
@@ -307,5 +339,10 @@ blockquote > p:first-child {
 }
 
 blockquote > p:last-child {
+    margin-bottom: 0px !important;
+}
+
+td p {
+    margin-top: 0px !important;
     margin-bottom: 0px !important;
 }

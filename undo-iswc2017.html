@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"></meta>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+
+		<title>UNDO: the United Nations System Document Ontology</title>
+
+		<link rel="stylesheet" href="css/reveal.css"></link>
+		<link rel="stylesheet" href="css/theme/simple.css"></link>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css"></link>
+
+		<link rel="stylesheet" href="css/metricsgraphics.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/billboard.min.css" />
+        <link rel="stylesheet" href="css/stats.css" />
+
+		<link rel="stylesheet" href="css/ctc.css"></link>
+		<link rel="stylesheet" href="css/addon.css"></link>
+		<link rel="stylesheet" href="css/font-awesome.min.css"></link>
+		<link rel="stylesheet" href="css/academicons.min.css"></link>
+
+
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section id="title" class="title_slide" role="doc-cover">
+					<h1 class="bbt">UNDO: the United Nations System Document Ontology</h1>
+					<p class="ssst mbn">Paper (HTML): <a href="https://w3id.org/people/essepuntato/papers/undo-iswc2017.html">https://w3id.org/people/essepuntato/papers/undo-iswc2017.html</a></p>
+					<p class="ssst mtn mbn">Paper (DOI): <a href="https://doi.org/10.1007/978-3-319-68204-4_18">https://doi.org/10.1007/978-3-319-68204-4_18</a></p>
+					<p class="ssst mbn mtn">Slides (HTML): <a href="https://w3id.org/people/essepuntato/presentations/undo-iswc2017.html">https://w3id.org/people/essepuntato/presentations/undo-iswc2017.html</a></p>
+					<p class="ssst mtn">Slides (DOI): <a href="https://doi.org/10.6084/m9.figshare.5527216">https://doi.org/10.6084/m9.figshare.5527216</a></p>
+					<div class="author">
+						<p><a href="https://www.unibo.it/sitoweb/silvio.peroni/en">Silvio Peroni</a> <sup class="ssst"><a href="mailto:silvio.peroni@unibo.it"><i class="fa fa-envelope" aria-hidden="true"></i></a> <a href="https://orcid.org/0000-0003-0530-4305"><i class="ai ai-orcid" aria-hidden="true"></i></a> <a href="https://twitter.com/essepuntato"><i class="fa fa-twitter" aria-hidden="true"></i></a></sup> • Monica Palmirani • Fabio Vitali</p>
+						<p class="ssst"><a href="https://iswc2017.semanticweb.org/">16th International Semantic Web Conference (ISWC 2017)</a>, 21-25 October 2017, Vienna, Austria</p>
+						<p class="license"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p>
+					</div>
+					<div role="doc-abstract">
+						<p>Akoma Ntoso is an OASIS Committee Specification Draft standard for the electronic representations of parliamentary, normative and judicial documents in XML. Recently, it has been officially adopted by the United Nations (UN) as the main electronic format for making UN documents machine-processable. However, Akoma Ntoso does not force nor define any formal ontology for allowing the description of real-world objects, concepts and relations mentioned in documents. In order to address this gap, in this paper we introduce the United Nations System Document Ontology (UNDO), i.e. an OWL 2 DL ontology developed and adopted by the United Nations that aims at providing a framework for the formal description of all these entities.</p>
+					</div>
+				</section>
+
+				<section id="documents">
+					<h2>UN Documents</h2>
+					<p>The parliamentary, normative and judicial documents published by the United Nations System of organizations are full of references to real-world objects and concepts (documents, people, organizations, roles, etc.)</p>
+					<p>As an outcome of the High-Level Committee on Management (HLCM) Working Group on Document Standards, the United Nations has recently started to adopt <a href="http://www.akomantoso.org/">Akoma Ntoso</a> for providing an electronic representations of all UN Documents and the entities they contain</p>
+				</section>
+
+				<section id="akomantoso">
+					<h2>Akoma Ntoso</h2>
+					<p>Akoma Ntoso introduce a sort of informal ontological structure, according to two kinds of classes:</p>
+					<ul>
+						<li>
+							<p><strong>document classes</strong> focus on representing the different aspects of a document as intellectual creation, the forms (versions, translations, etc.), its physical embodiment (e.g. PDF, XML, HTML, paper, etc.);</p>
+						</li>
+						<li>
+							<p><strong>non-document classes</strong> focus on representing the responsible for the production of the content and what the content is about (e.g. concept, object, event, locations, roles, deliberation steps, etc.).</p>
+						</li>
+					</ul>
+				</section>
+
+				<section id="requirements">
+					<h2>Informal requirements</h2>
+					<ol>
+						<li><p>Compliance with the Functional Requirements for Bibliographic Records (FRBR) for the document classes</p></li>
+						<li><p>Reuse existing ontologies for the description of documents and the entities they contain</p></li>
+						<li><p>Alignment to foundational ontologies (BFO and DOLCE)</p></li>
+						<li><p>Easily adaptable to the needs of different UN agencies</p></li>
+						<li><p>Diagrams and real examples for introducing ontological terms and their use to domain experts</p></li>
+						<li><p>Extensive documentation so as to introduce the ontology to people with different expertises</p></li>
+						<li><p>Meeting every 7-10 days showing the status of the development</p></li>
+					</ol>
+				</section>
+
+				<section id="undo">
+					<h2>UNDO</h2>
+					<p>The United Nations System Document Ontology (UNDO, <a href="https://w3id.org/un/ontology/undo">https://w3id.org/un/ontology/undo</a>) is an OWL 2 DL ontology that aims at providing a framework for the formal description of all entities and the relations in UN Documents</p>
+					<p>UNDO follows the <a href="https://www.force11.org/group/fairgroup/fairprinciples">FAIR Data Principles</a>:</p>
+					<ul>
+						<li><p>Findable: <a href="https://w3id.org">w3id.org</a> persistent identifier</p></li>
+						<li><p>Accessible: different formats (via content negotiation)</p></li>
+						<li><p>Interoperable: uses several existing ontologies</p></li>
+						<li><p>Re-usable: available with a CC-BY license</p></li>
+					</ul>
+				</section>
+
+				<section id="samod">
+					<h2>Development: SAMOD</h2>
+					<p class="tc mbs"><img class="wxl" src="img/iswc2017/samod.png" /></p>
+					<p class="tc sst mtn">An agile methodology for the development of ontologies by means of small steps of an iterative workflow that focuses on creating well-developed and documented models starting from exemplar domain descriptions – <a href="https://github.com/essepuntato/samod">https://github.com/essepuntato/samod</a></p>
+				</section>
+
+				<section id="graffoo">
+					<h2>Development: Graffoo</h2>
+					<p class="tc mbs"><img class="wl" src="img/iswc2017/undo.png" /></p>
+					<p class="tc sst mtn">It allows one to present the classes, properties and restrictions within OWL ontologies, or sub-sections of them, as clear and easy-to-understand diagrams <a href="http://www.essepuntato.it/graffoo">http://www.essepuntato.it/graffoo</a></p>
+				</section>
+
+				<section id="ditto-and-lode">
+					<h2>Development: DiTTO and LODE</h2>
+					<div>
+						<span class="wmm hl fl">
+							<img class="mrl" src="img/iswc2017/ditto.png" />
+							<span class="sst">It translates diagrams expressed either in Graffoo and created with yEd, an open source application to quickly and effectively generate high-quality diagrams, into OWL ontologies
+							<a href="http://www.essepuntato.it/ditto">http://www.essepuntato.it/ditto</a></span></p>
+						</span>
+						<span class="wmm hl fr">
+							<img src="img/iswc2017/lode.png" />
+							<span class="sst">It automatically extracts classes, object properties, and other ontological entities, and renders them in a human-readable HTML documentation designed for browsing and navigation
+							<a href="http://www.essepuntato.it/lode">http://www.essepuntato.it/lode</a></span></p>
+						</span>
+					</div>
+				</section>
+
+				<section id="reuse">
+					<h2>Ontologies reused</h2>
+					<p><a href="https://w3id.org/akn/ontology/allot">ALLOT</a>: an OWL 2 DL implementation of the Top Level Classes (TLCs) in Akoma Ntoso, aligned to two important foundational ontologies, <a href="http://ifomis.uni-saarland.de/bfo/">BFO</a> and <a href="http://ontologydesignpatterns.org/wiki/Ontology:DOLCE+DnS_Ultralite">DOLCE</a>, to provide a methodological organization of all the TLCs and their relations</p>
+					<p>Other: <a href="http://www.essepuntato.it/2012/04/tvc">Time-indexed Value in Context</a>, <a href="http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl">Time Interval</a>, <a href="http://w3.org/ns/oa">Web Annotation Ontology</a>, <a href="http://purl.org/dc/terms/">DC Terms</a>, <a href="http://xmlns.com/foaf/0.1/">FOAF</a>, <a href="http://id.loc.gov/vocabulary/iso639-1">ISO 639-1</a>, <a href="http://www.estrellaproject.org/lkif-core/lkif-core.owl">LKIF Core</a>, <a href="http://www.w3.org/2004/02/skos/core">SKOS</a>, <a href="http://www.sparontologies.net">SPAR Ontologies</a></p>
+				</section>
+
+				<section id="versions">
+					<h2>Versions and mentions</h2>
+					<p><img src="img/iswc2017/version.png" /></p>
+					<pre class="no-highlight fs fragment"><code>:a-res-50-100-1996-02-02 a undo:Resolution ;
+    allot:mentions
+        :a-res-47-180-1992-12-22 ,
+        :government-of-turkey ,
+        :habitat-ii .
+
+:a-res-47-180-1992-12-22 a undo:Resolution .
+:government-of-turkey a allot:Organization .
+:habitat-ii a allot:Event .</code></pre>
+				</section>
+
+				<section id="relations">
+					<h2>Relations</h2>
+					<p><img src="img/iswc2017/relation.png" /></p>
+					<pre class="no-highlight fs fragment"><code># This relation describes the General Assembly recalling the resolution A/RES/47/180.
+:relation-1 a undo:Relation ;
+    undo:hasProponent :general-assembly ;
+    undo:hasSemantics :recall ;
+    undo:hasReceiver :a-res-47-180-1992-12-22 .
+
+:a-res-47-180-1992-12-22 a undo:Resolution .
+:general-assembly a allot:Organization .
+:recall a allot:Concept .</code></pre>
+				</section>
+
+				<section id="annotations">
+					<h2>Annotations</h2>
+					<p><img src="img/iswc2017/annotation.png" /></p>
+					<pre class="no-highlight fs fragment"><code>:annotation-1-a-res-50-100-1996-02-02 a undo:Annotation ;
+    oa:hasBody :relation-1 ;
+    oa:hasTarget :a-res-50-100-1996-02-02 .
+
+:a-res-50-100-1996-02-02 a undo:Resolution .</code></pre>
+				</section>
+
+				<section>
+					<section id="roles">
+						<h2>Roles and statuses</h2>
+						<p><img src="img/iswc2017/role.png" /></p>
+						<pre class="no-highlight fs fragment"><code>:giorgio-napolitano a undo:Agent ;
+	    tvc:hasValue :giorgio-napolitano-president-of-italy-2006-2013 .
+	:giorgio-napolitano-president-of-italy-2006-2013 a undo:ValueInTimeAndContext ;
+	    tvc:withValue :president ;
+	    tvc:atTime :2006-2013 ;
+	    tvc:withinContext :italy .
+
+	:2006-2013 a undo:Interval ;
+	    ti:hasIntervalStartDate "2006-05-15T00:00:00"^^xsd:dateTime ;
+	    ti:hasIntervalEndDate "2013-04-22T00:00:00"^^xsd:dateTime .
+	:president a allot:Role .
+	:italy a allot:Reference .</code></pre>
+					</section>
+					<section id="terms">
+						<h2>Terms</h2>
+						<p><img src="img/iswc2017/term.png" /></p>
+						<pre class="no-highlight fs fragment"><code>:decides a allot:Term ;
+	    undo:hasRelatedConcept :taking-a-decision .
+
+	:decide a allot:Term ;
+	    undo:hasRelatedConcept :taking-a-decision .
+
+	:taking-a-decision a allot:Concept .</code></pre>
+					</section>
+					<section id="workflows">
+						<h2>Workflows and lifecycles</h2>
+						<p><img src="img/iswc2017/workflow.png" /></p>
+						<pre class="no-highlight fs fragment"><code>:publication a undo:Workflow ; pwo:hasStep :step-1 , :step-2 , :step-3 , :step-4 .
+	:step-1 a undo:Step ; undo:hasStepType :write ; pwo:hasNextStep :step-2 .
+
+	:writing-first-draft a undo:Action ;
+	    taskex:executesTask :step-1 ;
+	    part:hasParticipant :assistant-member-rep , :assistant-first-draft-resolution ;
+	    pwo:happened :2017-03-01_05 .
+
+	:assistant-member-rep a undo:Agent .
+	:assistant-first-draft-resolution a undo:DocumentVersion .</code></pre>
+					</section>
+				</section>
+
+				<section id="cq1">
+					<h2>Question 1</h2>
+					<p>What are all the documents that refer to the UN resolution A/RES/47/180 of 22 December 1992?</p>
+					<pre class="no-highlight fs fragment"><code>SELECT DISTINCT ?document
+WHERE {
+    ?document allot:mentions :a-res-47-180-1992-12-22 .
+}</code></pre>
+				</section>
+
+				<section id="cq2">
+					<h2>Question 2</h2>
+					<p>What are the documents that describes the General Assembly recalling the resolution A/RES/47/180 of 22 December 1992?</p>
+					<pre class="no-highlight fs fragment"><code>SELECT DISTINCT ?document
+WHERE {
+    ?rel a undo:Relation ;
+        undo:hasProponent :general-assembly ;
+        undo:hasSemantics :recall ;
+        undo:hasReceiver :a-res-47-180-1992-12-22 .
+
+    ?ann a undo:Annotation ;
+        oa:hasBody ?rel ;
+        oa:hasTarget ?document
+}</code></pre>
+				</section>
+
+				<section id="cq3">
+					<h2>Question 3</h2>
+					<p>How many times an agent has been assigned to a specific role?</p>
+					<pre class="no-highlight fs fragment"><code>SELECT DISTINCT ?agent ?role ?context (count(?agent) AS ?count)
+WHERE {
+    ?agent a undo:Agent ;
+        tvc:hasValue ?value .
+
+    ?value a undo:ValueInTimeAndContext ;
+        tvc:withValue ?role ;
+        tvc:withinContext ?context .
+
+    ?role a allot:Role .
+}
+GROUP BY ?agent ?role ?context</code></pre>
+				</section>
+
+				<section id="other-cq">
+					<h2>Other competency questions</h2>
+					<ul class="sst">
+						<li><p>What are all the entities referred by the UN resolution A/RES/50/100 of 2 February 1996?</p></li>
+						<li><p>What are all the terms that actually refer to the concept of taking a decision, and in which documents have been used?</p></li>
+						<li><p>What are the current roles of all the agents?</p></li>
+						<li><p>What roles have been held by Sergio Mattarella during his life?</p></li>
+						<li><p>Which roles are involved in particular contexts?</p></li>
+						<li><p>What are all the statuses that have been associated to all the documents?</p></li>
+						<li><p>In which step of all the workflows the first version of a document has been produced?</p></li>
+						<li><p>How many steps (on average) are used in each workflow?</p></li>
+						<li><p>How much did it take to executing each step in each workflow execution?</p></li>
+						<li><p>What was the last entities produced by all the workflow executions?</p></li>
+					</ul>
+				</section>
+
+				<section id="documentation">
+					<h2>Documentation</h2>
+					<p class="fm st"><a href="https://unsceb-hlcm.github.io/onto-undo/index.html">https://unsceb-hlcm.github.io/onto-undo/index.html</a></p>
+					<p><img src="img/iswc2017/doc.png" /></p>
+				</section>
+
+				<section id="conclusion">
+					<h2>Conclusions</h2>
+					<p>Overview of the United Nations Document Ontology (UNDO), a framework for the description of all the entities mentioned in United Nations documents stored in Akoma Ntoso, and the relations that can exists among them</p>
+					<p>Put the foundations for making UN documents machine-readable, so as to foster collaboration, to reduce costs in information management across the system, and to allow the creation innovative services</p>
+				</section>
+
+				<section id="end" class="title_slide">
+					<h2>
+						END
+						<span class="subtitle">UNDO: the United Nations System Document Ontology</span>
+					</h2>
+					<div class="author">
+						<p><a href="https://www.unibo.it/sitoweb/silvio.peroni/en">Silvio Peroni</a> <sup class="ssst"><a href="mailto:silvio.peroni@unibo.it"><i class="fa fa-envelope" aria-hidden="true"></i></a> <a href="https://orcid.org/0000-0003-0530-4305"><i class="ai ai-orcid" aria-hidden="true"></i></a> <a href="https://twitter.com/essepuntato"><i class="fa fa-twitter" aria-hidden="true"></i></a></sup> • Monica Palmirani • Fabio Vitali</p>
+						<p class="ssst"><a href="https://iswc2017.semanticweb.org/">16th International Semantic Web Conference (ISWC 2017)</a>, 21-25 October 2017, Vienna, Austria</p>
+						<p class="license"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/jquery.min.js"></script>
+
+		<script src="img/iswc2017/iswc2017/conf.js"> </script>
+        <script src="js/underscore.min.js"> </script>
+        <script src="js/d3.min.js"> </script>
+        <script src="js/bootstrap.min.js"> </script>
+        <script src="img/iswc2017/iswc2017/hooks.js"> </script>
+        <script src="img/iswc2017/iswc2017/stats.js"> </script>
+        <script src="js/billboard.min.js"> </script>
+
+        <script>
+            $(document).ready(createGraph);
+        </script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
