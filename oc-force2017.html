@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"></meta>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+
+		<title>OpenCitations: structured open citation data as a part of the Commons</title>
+
+		<link rel="stylesheet" href="css/reveal.css"></link>
+		<link rel="stylesheet" href="css/theme/simple.css"></link>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css"></link>
+
+		<link rel="stylesheet" href="css/metricsgraphics.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/billboard.min.css" />
+        <link rel="stylesheet" href="css/stats.css" />
+
+		<link rel="stylesheet" href="css/ctc.css"></link>
+		<link rel="stylesheet" href="css/addon.css"></link>
+		<link rel="stylesheet" href="css/font-awesome.min.css"></link>
+		<link rel="stylesheet" href="css/academicons.min.css"></link>
+
+
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section id="title" class="title_slide" role="doc-cover">
+					<h1 class="bbt">
+						<span class="oc-purple">Open</span><span class="oc-blue">Citations</span>
+						<span class="subtitle">Structured open citation data as a part of the Commons</span>
+					</h1>
+					<p class="ssst mbn"><a href="https://doi.org/10.6084/m9.figshare.5544907">https://doi.org/10.6084/m9.figshare.5544907</a></p>
+					<p class="ssst mtn"><a href="https://w3id.org/people/essepuntato/presentations/oc-force2017.html">https://w3id.org/people/essepuntato/presentations/oc-force2017.html</a></p>
+					<div class="author">
+						<p><a href="https://www.unibo.it/sitoweb/silvio.peroni/en">Silvio Peroni</a></p>
+						<p class="contact">
+							<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:silvio.peroni@unibo.it">silvio.peroni@unibo.it</a>
+							<i class="ai ai-orcid" aria-hidden="true"></i> <a href="https://orcid.org/0000-0003-0530-4305">0000-0003-0530-4305</a>
+							<i class="fa fa-twitter" aria-hidden="true"></i> <a href="https://twitter.com/essepuntato">@essepuntato</a>
+						</p>
+						<p><a href="http://dasplab.cs.unibo.it/">DASPLab, DISI, University of Bologna, Italy</a></p>
+						<p class="ssst"><a href="https://force2017.org">FORCE 2017, 25-27 October 2017, Berlin, Germany</p>
+						<p class="license"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></p>
+					</div>
+					<div role="doc-abstract">
+						<p>OpenCitations (http://opencitations.net) employs Semantic Web technologies to publish scholarly citation data in an open repository. The main service developed by OpenCitations is the OpenCitations Corpus (OCC), in which RDF-based  scholarly  citation  data  (i.e.  bibliographic  references)  are  stored  and  made  freely  available  under  a Creative Commons public domain dedication so that others may use and build upon them. The other resources of OpenCitations – namely the ontologies describing the data and the software developed to build the OCC – are also available with open licenses. OpenCitations follows the FAIR principles for data-intensive science, namely that the data should be findable, accessible, interoperable and re-usable, and employs the three basic criteria promoted by the Initiative for Open Citations, namely that the citation data must be structured, separable and open.</p>
+						<p>In  this  presentation,  we  will  explain  how  OpenCitations  harvests  citations  and  associated  metadata  from several external APIs (those of Europe PubMed Central, Crossref and ORCID), describes them using the SPAR Ontologies, the Provenance Ontology and FOAF according to the OCC metadata model, and stores all the data in JSON-LD. The stored citations are made accessible via the OCC SPARQL interface, by means of the HTTP requests (using content negotiation, e.g. https://w3id.org/oc/corpus/br/1), and as monthly data dumps. As of 5th August 2017, the OCC had ingested the references from 211,196 citing bibliographic resources and contained information about 8,986,030 citation links to 5,106,542 cited resources.</p>
+						<p>We  will  exemplify  how  OpenCitations  can  benefit  the  scholarly  community  at  large,  being  used  by  international  initiatives  and  projects  including  Wikidata/WikiCite,  OpenAIRE,  LOC-DB  and  eLife,  and  will  describe future plans, made possible by funding from the Sloan Foundation, to increase the rate of citation ingest thirty-fold to 15 million citations per month, and to develop novel user interfaces to access and visualize the citation data.</p>
+					</div>
+				</section>
+
+				<section id="meaning">
+					<h2>What is a citation</h2>
+					<p class="clb">
+						<img class="hl" src="img/semsci2017/citation-correct.png" />
+					</p>
+					<p>A citation is a conceptual directional link from a citing entity to a cited entity, instantiated by a bibliographic reference + an in-text reference pointer denoting such reference</p>
+				</section>
+
+				<section id="indexes">
+					<h2>Citation indexes</h2>
+					<p>A <em>citation index</em> is <q>a kind of bibliographic index, an index of citations between publications, allowing the user to easily establish which later documents cite which earlier documents</q> – from <a href="https://en.wikipedia.org/wiki/Science_Citation_Index">Wikipedia</a></p>
+					<ul>
+						<li><p>Some are freely accessible but not downloadable</p></li>
+						<li><p>Others can be accessed only by paying significant access fees</p></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Human readability first</h2>
+					<p class="tc mbn">
+						<img class="hm fragment shrink" src="img/force2017/scholar.png" data-fragment-index="1" />
+						<span class="fragment" data-fragment-index="1"><img class="hm fragment shrink" data-fragment-index="2" src="img/force2017/wos.png" /></span>
+					</p>
+					<p class="mtn tc fragment" data-fragment-index="2">
+						<img class="hss" src="img/force2017/scopus.png" />
+					</p>
+				</section>
+
+				<section id="machines">
+					<h2>Towards machine readability?</h2>
+					<p>Semantic Publishing concerns the use of Web and Semantic Web technologies and standards for enhancing a scholarly work semantically (by means of plain RDF statements, nano-publications, etc.) so as to improve its discoverability, interactivity, openness and (re-)usability...</p>
+					<img class="hss fr mrl fragment" data-fragment-index="1" src="img/force2017/marvin.jpg" />
+					<img class="hss fr mrl mlm fragment" data-fragment-index="1" src="img/force2017/walle.jpg" />
+					<p class="fragment" data-fragment-index="1">... for both humans <strong>and machines</strong></p>
+					<p class="sst fragment" data-fragment-index="1"><cite>David Shotton (2009). Semantic publishing: the coming revolution in scientific journal publishing. Learned Publishing, 22 (2): 85–94.<br />DOI: <a href="https://doi.org/10.1087/2009202">https://doi.org/10.1087/2009202</a></cite></p>
+				</section>
+
+				<section id="spar">
+					<h2>SPAR Ontologies</h2>
+					<p>Back to 2010: <a href="http://www.sparontologies.net">Semantic Publishing and Referencing (SPAR) Ontologies</a> form a suite of orthogonal and complementary OWL 2 DL ontology modules for the creation of comprehensive machine-readable RDF metadata for every aspect of semantic publishing and referencing</p>
+					<p><img class="hl" src="img/force2017/spar.png" /></p>
+				</section>
+
+				<section id="fair">
+					<h2>FAIR citation data</h2>
+					<p>
+						<a href="https://www.force11.org/group/fairgroup/fairprinciples">
+							<img class="hl" src="img/force2017/fair.png"/>
+						</a>
+					</p>
+				</section>
+
+				<section id="opencitations">
+					<h2><span class="oc-purple">Open</span><span class="oc-blue">Citations</span></h2>
+					<img class="fl mrm wss" src="img/force2017/opencitations.png" />
+					<p>The <span class="oc-purple">Open</span><span class="oc-blue">Citations</span> Corpus (OCC, <a href="http://opencitantions.net">http://opencitations.net</a>) is a Linked Open Data (LOD) repository of CC0 citation data described with SPAR Ontologies (<a href="http://www.sparontologies.net/ontologies/biro">BiRO</a>, <a href="http://www.sparontologies.net/ontologies/c4o">C4O</a>, <a href="http://www.sparontologies.net/ontologies/cito">CiTO</a>, <a href="http://www.sparontologies.net/ontologies/datacite">DataCite Ontology</a>, <a href="http://www.sparontologies.net/ontologies/fabio">FaBiO</a>, <a href="http://www.sparontologies.net/ontologies/pro">PRO</a>), <a href="http://xmlns.com/foaf/spec/">FOAF</a>, <a href="https://www.w3.org/TR/prov-o/">PROV-O</a>, <a href="https://www.w3.org/TR/vocab-dcat/">DCAT</a>, <a href="https://www.w3.org/TR/void/">VOID</a></p>
+					<p>It provides >11M citation links from ~260,000 citing articles to ~6M cited resources + provenance information</p>
+					<p>OCC data are FAIR:<br /><a class="st" href="http://w3id.org/people/essepuntato/papers/oc-garr2017.html">http://w3id.org/people/essepuntato/papers/oc-garr2017.html</a></p>
+				</section>
+
+				<section id="ingestion">
+					<h2>Ingestion workflow</h2>
+					<p>We developed several scripts for implementing the ingestion workflow that populates the <span class="oc-purple">Open</span><span class="oc-blue">Citations</span> Corpus</p>
+					<p>All the software is available on the <span class="oc-purple">Open</span><span class="oc-blue">Citations</span> <a href="https://github.com/essepuntato/opencitations">GitHub repository</a> and released as open source code with the <a href="https://opensource.org/licenses/ISC">ISC License</a></p>
+					<p>These scripts implement a <em>live</em> and <em>iterative</em> process</p>
+					<ul class="st">
+						<li class="fragment" data-fragment-index="1"><p><img class="fr hss mls fragment" src="img/force2017/zombie.png"  data-fragment-index="3" />Live: it's working while I'm speaking. <span class="fragment" data-fragment-index="2">It doesn't sleep, never.</span> <span class="fragment" data-fragment-index="3">It's like a sentient, relentless, fast zombie – watch out!</span></p></li>
+						<li class="fragment" data-fragment-index="4"><p>Iterative: the ingestion workflow continuously calls several external APIs to obtain new reference lists and clean metadata of the citing and cited papers</p></li>
+					</ul>
+				</section>
+
+				<section id="api">
+					<h2>External APIs</h2>
+					<p>At present, all the reference lists are taken by processing the XML sources of the papers in the <a href="https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/">PubMed Central Open Access subset</a></p>
+					<p><a href="https://europepmc.org/RestfulWebService">Europe PubMed Central API</a> for retrieving the XML sources</p>
+					<ul class="st mlxl">
+						<li><p>We ask for the most recent papers first</p></li>
+						<li><p>Citing papers includes articles published in 2016 and 2017</p></li>
+						<li><p>There are 1.75M OA articles available in PubMed, according to <a href="http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=open_access:y">their API</a>. <span class="fragment">We have harvested 15% so far...</span></p></li>
+					</ul>
+					<p class="fragment"><a href="http://api.crossref.org">Crossref APIs</a> to obtain additional information (title, authors, venues, etc.) about citing/cited papers, and then call the <a href="https://members.orcid.org/api/about-public-api">ORCID APIs</a> to obtain ORCIDs of the authors</p>
+				</section>
+
+				<section id="model">
+					<h2>Data model</h2>
+					<p class="mbs">Available at <a href="https://doi.org/10.6084/m9.figshare.3443876">https://doi.org/10.6084/m9.figshare.3443876</a> and implemented in the <a href="https://w3id.org/oc/ontology"><span class="oc-purple">Open</span><span class="oc-blue">Citations</span> Ontology</a></p>
+					<p class="mtn"><img class="hl" src="img/force2017/oco.png" /></p>
+				</section>
+
+				<section id="resources">
+					<h2>Resources in the OCC</h2>
+					<table class="sssst">
+						<tr><th>Entity type</th><th>What it describes</th><th>Count in the OCC</th></tr>
+						<tr><td>Bibliographic resource (br)</td><td>Conference papers, book chapters, journal articles, academic proceedings, books, journals, etc.
+</td><td>~7.3M</td></tr>
+						<tr><td>Resource embodiment (re)</td><td>Digital vs. print, first and ending pages, etc.
+</td><td>~4.3M</td></tr>
+						<tr><td>Bibliographic entry (be)</td><td>Textual content of a reference in a reference list
+</td><td>~10.5M</td></tr>
+						<tr><td>Resposible agent (ra)</td><td>Given name, family name and ORCID of the agent involved
+</td><td>~22.5M</td></tr>
+						<tr><td>Agent role (ar)</td><td>Author, publisher, etc.
+</td><td>~28.6M</td></tr>
+						<tr><td>Identifier (id)</td><td>DOI, PubMed ID, PubMed Central ID, ORCID, ISSN, etc.</td><td>~15.1M</td></tr>
+					</table>
+					<div class="fragment">
+						<p id="occstat" class="graph mbn"></p>
+						<table class="sssst mrxl mtn">
+							<tr><th>Data statements</th><th>Provenance statements</th></tr>
+							<tr><td>~0.45B</td><td>~1.5B</td></tr>
+						</table>
+					</div>
+				</section>
+
+				<section id="entities">
+					<h2>Entities in the OCC</h2>
+					<table class="sssst">
+						<tr><th>Entity type</th><th>Kinds of entity</th><th>Entities with identifiers</th></tr>
+						<tr>
+							<td>Bibliographic resource</td>
+							<td>
+								<p>Academic Proceedings: 13,804</p>
+								<p>Book: 47,824</p>
+								<p>Book Chapter: 68,798</p>
+								<p>Book Series: 15</p>
+								<p>Data File: 4,155</p>
+								<p>Expression Collection: 10,321</p>
+								<p>Journal: 27,373</p>
+								<p class="fragment highlight-red">Journal Article: 4,481,224</p>
+								<p>Journal Issue: 1,029,369</p>
+								<p>Journal Volume: 365,286</p>
+								<p>Part: 6</p>
+								<p>Proceedings Paper: 28,125</p>
+								<p>Reference Book: 66</p>
+								<p>Reference Entry: 7,917</p>
+								<p>Report Document: 1,946</p>
+								<p>Series: 155</p>
+								<p>Specification Document: 600</p>
+								<p>Thesis: 768</p>
+								<p>Generic kind: 1,281,627</p>
+							</td>
+							<td>
+								<p class="fragment highlight-red">DOI: 4,697,326</p>
+								<p>ISBN: 82,329</p>
+								<p>ISSN: 38,359</p>
+								<p>PMCID: 1,280,229</p>
+								<p>PMID: 3,954,683</p>
+								<p>URL: 4,835,585</p>
+							</td>
+						</tr>
+						<tr>
+							<td>Responsible agent</td>
+							<td>-</td>
+							<td>
+								<p class="fragment highlight-red">ORCID: 240,989</p>
+								<p>URL: 5,642</p>
+							</td>
+						</tr>
+						<tr>
+							<td>Identifier</td>
+							<td>
+								<p>DOI: 4,697,326</p>
+								<p>ISBN: 82,329</p>
+								<p>ISSN: 38,359</p>
+								<p>ORCID: 240,989</p>
+								<p>PMCID: 1,280,229</p>
+								<p>PMID: 3,954,683</p>
+								<p class="fragment highlight-red">URL: 4,841,227</p>
+							</td>
+							<td>-</td>
+						</tr>
+					</table>
+				</section>
+
+				<section id="access">
+					<h2>Accessing OCC data</h2>
+					<ul class="st">
+						<li><p>Direct access to bibliographic resources by means of their HTTP URIs (via content negotiation, e.g. <a href="https://w3id.org/oc/corpus/br/1">https://w3id.org/oc/corpus/br/1</a>)</p></li>
+						<li><p>SPARQL endpoint (<a href="https://w3id.org/oc/sparql">https://w3id.org/oc/sparql</a>)</p></li>
+						<li><p>Monthly dumps (<a href="http://opencitations.net/download">http://opencitations.net/download</a>, stored in <a href="https://figshare.com">Figshare</a>)</p></li>
+					</ul>
+					<div class="fragment">
+						<p class="tr ssst"><em>Dump views and downloads</em></p>
+						<p id="figshare" class="graph"></p>
+					</div>
+				</section>
+
+				<section id="usage">
+					<h2>Usage of the OCC</h2>
+					<p>Some known adopters: <a href="https://wikidata.org">Wikidata</a>, <a href="https://www.openaire.eu/">OpenAIRE</a>, <a href="https://locdb.bib.uni-mannheim.de">LOC-DB</a>, <a href="https://elifesciences.org">eLife</a>, <a href="https://ontotext.com/">Ontotext</a>, independent researchers (<a href="https://doi.org/10.5281/zenodo.1010450">Anna Kamińska</a>, <a href="https://github.com/greenelab/opencitations">Daniel Himmelstein</a>, <a href="http://ceur-ws.org/Vol-1947/paper06.pdf">Thiago Nunes and Daniel Schwabe</a>)</p>
+					<div class="fragment">
+						<p class="tr ssst"><em>Website accesses</em></p>
+						<p id="website" class="graph"></p>
+						<p class="tc sst mrxl">Use by country: United States (33.7%), France (31.3%), Bulgaria (14.3%)</p>
+					</div>
+				</section>
+
+				<section id="blog">
+					<h2>Blog</h2>
+					<p><span class="oc-purple">Open</span><span class="oc-blue">Citations</span> Blog on Wordpress at <a href="https://opencitations.wordpress.com">https://opencitations.wordpress.com</a></p>
+					<div>
+						<p id="wordpress" class="graph"></p>
+					</div>
+				</section>
+
+				<section id="twitter">
+					<h2>Twitter</h2>
+					<p><span class="oc-purple">Open</span><span class="oc-blue">Citations</span> Twitter account at<br /><a href="https://twitter.com/opencitations">https://twitter.com/opencitations</a></p>
+					<div>
+						<p id="stat_twitter" class="graph"></p>
+					</div>
+				</section>
+
+				<section id="i4oc">
+					<h2>I4OC</h2>
+					<p><a href="https://i4oc.org"><img src="img/force2017/i4oc.png" /></a></p>
+				</section>
+
+				<section id="current">
+					<h2>Current infrastructure</h2>
+					<p class="tc fragment"><img class="wxl" src="img/force2017/empty.png" /></p>
+					<p class="tc fragment">It's a virtual machine - it doesn't exist!</p>
+				</section>
+
+				<section id="advisory">
+					<h2>International advisory panel</h2>
+					<ul>
+						<li><p>Geoffrey Bilder, Crossref</p></li>
+						<li><p>Jonathan Dugan, Berkeley Institute for Data Science</p></li>
+						<li><p>Catriona MacCallum, Hindawi</p></li>
+						<li><p>Johanna McEntyre, Europe PubMed Central</p></li>
+						<li><p>Cassidy Sugimoto, Indiana University</p></li>
+						<li><p>Dario Taraborelli, Wikimedia Foundation</p></li>
+					</ul>
+				</section>
+
+				<section id="sloan">
+					<h2>Future infrastructure</h2>
+					<p class="mtn">We have <a href="https://opencitations.wordpress.com/2017/05/15/the-sloan-foundation-funds-opencitations/">recently received</a> a small grant from the <a href="https://sloan.org">Alfred P. Sloan Foundation</a> for</p>
+					<ul>
+						<li><p>one year's salary for a postdoc (Ivan Heibi, who will start in November) to develop new user interfaces</p></li>
+						<li class="fragment" data-fragment-index="1"><p>new hardware to enhance the OCC performance<span class="fragment" data-fragment-index="1"> <br /> <span class="fragment" data-fragment-index="2">⇒ from 8M citations per year to <u><strong class="fragment  highlight-red" data-fragment-index="2">240M</strong></u></span></span></p></li>
+					</ul>
+					<div class="fragment" data-fragment-index="1">
+						<p class="tc ssst mtm mbn">DELL PowerEdge R730xd V4, 512GB RAM, 22TB HD + 30 Raspberry Pi 3</p>
+						<p class="tc mtn"><img class="hss" src="img/force2017/server.png" /></p>
+					</div>
+				</section>
+
+				<section id="coming">
+					<h2>Citation data are coming</h2>
+					<p class="tc mbn"><img src="img/force2017/snow.png" class="wl mbn" /></p>
+					<p class="tc mtn"><img src="img/force2017/white.png" class="wl mtn" /></p>
+				</section>
+
+				<section id="end" class="title_slide">
+					<h2>
+						END
+						<span class="subtitle"><span class="oc-purple">Open</span><span class="oc-blue">Citations</span>: structured open citation data as a part of the Commons</span>
+					</h2>
+					<div class="author">
+						<p><a href="https://www.unibo.it/sitoweb/silvio.peroni/en">Silvio Peroni</a></p>
+						<p class="contact">
+							<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:silvio.peroni@unibo.it">silvio.peroni@unibo.it</a>
+							<i class="ai ai-orcid" aria-hidden="true"></i> <a href="https://orcid.org/0000-0003-0530-4305">0000-0003-0530-4305</a>
+							<i class="fa fa-twitter" aria-hidden="true"></i> <a href="https://twitter.com/essepuntato">@essepuntato</a>
+						</p>
+						<p><a href="http://dasplab.cs.unibo.it/">DASPLab, DISI, University of Bologna, Italy</a></p>
+						<p class="ssst"><a href="https://force2017.org">FORCE 2017, 25-27 October 2017, Berlin, Germany</p>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/jquery.min.js"></script>
+
+		<script src="img/force2017/conf.js"> </script>
+        <script src="js/underscore.min.js"> </script>
+        <script src="js/d3.min.js"> </script>
+        <script src="js/bootstrap.min.js"> </script>
+        <script src="img/force2017/hooks.js"> </script>
+        <script src="img/force2017/stats.js"> </script>
+        <script src="js/billboard.min.js"> </script>
+
+        <script>
+            $(document).ready(createGraph);
+        </script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

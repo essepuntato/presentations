@@ -6,6 +6,11 @@ li > p {
     margin:0px !important;
 }
 
+.ma {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .clb {
     clear: both !important;
 }
@@ -282,7 +287,7 @@ ul li:first-child p {
 }
 
 .tc {
-    text-align:center !important ;
+    text-align:center !important;
 }
 
 .tj {
@@ -345,4 +350,12 @@ blockquote > p:last-child {
 td p {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
+}
+
+cite {
+    font-style: italic !important;
+}
+
+.graph {
+    max-width: 80% !important;
 }
